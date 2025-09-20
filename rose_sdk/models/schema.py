@@ -2,16 +2,18 @@
 Schema models for the Rose Python SDK.
 """
 
-from typing import Dict, Any
+from typing import Any
 from pydantic import ConfigDict
 from .base import BaseModel
-from .field import Field
+
+# Field import removed
 
 
 class Schema(BaseModel):
     """Schema model defining dataset structure."""
-    model_config = ConfigDict(extra='allow')
-    
+
+    model_config = ConfigDict(extra="allow")
+
     def __getitem__(self, key: str) -> Any:
         """Get field by name."""
         return getattr(self, key)
@@ -26,7 +28,7 @@ class Schema(BaseModel):
 
     def keys(self):
         """Get all field names."""
-        return [k for k in self.__dict__.keys() if not k.startswith('_')]
+        return [k for k in self.__dict__.keys() if not k.startswith("_")]
 
     def values(self):
         """Get all fields."""

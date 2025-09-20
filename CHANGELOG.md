@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.1.0] - 2024-01-20
 
+### Changed
+- **Python Version Support**: Now requires Python 3.11+ (previously supported 3.8+)
+- **CI/CD**: Updated GitHub Actions to test only Python 3.11 and 3.12
+
 ### Added
 - Complete role management system with permission-based access control
 - Comprehensive dataset management with schema validation

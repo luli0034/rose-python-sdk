@@ -31,7 +31,7 @@ This project follows a code of conduct. By participating, you are expected to up
 
 ### Prerequisites
 
-- Python 3.8 or higher
+- Python 3.11 or higher
 - pip
 - git
 

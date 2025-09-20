@@ -2,15 +2,16 @@
 Record models for the Rose Python SDK.
 """
 
-from typing import List, Dict, Any
+from typing import List, Any
 from pydantic import ConfigDict
 from .base import BaseModel
 
 
 class Record(BaseModel):
     """Record model."""
-    model_config = ConfigDict(extra='allow')
-    
+
+    model_config = ConfigDict(extra="allow")
+
     def __getitem__(self, key: str) -> Any:
         """Get value by field name."""
         return getattr(self, key)
@@ -25,7 +26,7 @@ class Record(BaseModel):
 
     def keys(self):
         """Get all field names."""
-        return [k for k in self.__dict__.keys() if not k.startswith('_')]
+        return [k for k in self.__dict__.keys() if not k.startswith("_")]
 
     def values(self):
         """Get all values."""
@@ -42,11 +43,12 @@ class Record(BaseModel):
 
 class Records(BaseModel):
     """Records model."""
-    model_config = ConfigDict(extra='allow')
-    
+
+    model_config = ConfigDict(extra="allow")
+
     def __init__(self, **data):
         super().__init__(**data)
-        if 'records' not in data:
+        if "records" not in data:
             self.records = []
 
     def __getitem__(self, index: int) -> Record:

@@ -10,7 +10,7 @@ from .recommendation import RecommendationService
 
 __all__ = [
     "AccountService",
-    "RoleService", 
+    "RoleService",
     "DatasetService",
     "PipelineService",
     "RecommendationService",

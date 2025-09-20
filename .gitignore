@@ -184,5 +184,5 @@ Desktop.ini
 *.log
 
 # Test files
-test_*.py
+local_*.py
 *_test.py

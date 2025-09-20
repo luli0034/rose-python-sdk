@@ -4,7 +4,7 @@ This guide will help you get up and running with the Rose Python SDK quickly.
 
 ## Prerequisites
 
-- Python 3.8 or higher
+- Python 3.11 or higher
 - Access to a Rose Recommendation Service instance
 - Valid API credentials
 

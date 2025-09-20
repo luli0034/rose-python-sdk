@@ -248,7 +248,7 @@ logging.basicConfig(level=logging.DEBUG)
 ## 📞 Support
 
 - **GitHub Issues**: [Create an issue](https://github.com/your-org/rose-python-sdk/issues)
-- **Email Support**: luli@kkcompany.com
+- **Email Support**: luli245683@gmail.com
 - **API Documentation**: [Rose API Docs](https://raas.kkstream.tech/doc/rose/v1.1/)
 
 ## 📄 License

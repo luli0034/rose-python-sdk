@@ -282,7 +282,7 @@ If you encounter issues with the GitHub Actions setup:
 1. Check the [GitHub Actions documentation](https://docs.github.com/en/actions)
 2. Review the workflow logs for specific error messages
 3. Create an issue in the repository with details about the problem
-4. Contact support at luli@kkcompany.com
+4. Contact support at luli245683@gmail.com
 
 ---
 

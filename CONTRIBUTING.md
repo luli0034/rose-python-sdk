@@ -16,7 +16,7 @@ Thank you for your interest in contributing to the Rose Python SDK! This documen
 
 ## Code of Conduct
 
-This project follows a code of conduct. By participating, you are expected to uphold this code. Please report unacceptable behavior to luli@kkcompany.com.
+This project follows a code of conduct. By participating, you are expected to uphold this code. Please report unacceptable behavior to luli245683@gmail.com.
 
 ## Getting Started
 
@@ -258,7 +258,7 @@ We follow [Semantic Versioning](https://semver.org/):
 ## Getting Help
 
 - **GitHub Issues**: For bug reports and feature requests
-- **Email**: luli@kkcompany.com for general questions
+- **Email**: luli245683@gmail.com for general questions
 - **Documentation**: Check the docs/ directory
 
 ## License

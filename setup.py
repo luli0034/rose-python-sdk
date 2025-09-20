@@ -19,11 +19,11 @@ setup(
     description="Python SDK for Rose Recommendation Service API",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/your-org/rose-python-sdk",
+    url="https://github.com/luli0034/rose-python-sdk",
     project_urls={
-        "Bug Reports": "https://github.com/your-org/rose-python-sdk/issues",
-        "Source": "https://github.com/your-org/rose-python-sdk",
-        "Documentation": "https://github.com/your-org/rose-python-sdk/tree/main/docs",
+        "Bug Reports": "https://github.com/luli0034/rose-python-sdk/issues",
+        "Source": "https://github.com/luli0034/rose-python-sdk",
+        "Documentation": "https://github.com/luli0034/rose-python-sdk/tree/main/docs",
     },
     packages=find_packages(),
     classifiers=[

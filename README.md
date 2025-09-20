@@ -277,8 +277,25 @@ MIT License - see LICENSE file for details.
 ## 🔗 Links
 
 - [API Documentation](https://raas.kkstream.tech/doc/rose/v1.1/)
-- [GitHub Repository](https://github.com/your-org/rose-python-sdk)
+- [GitHub Repository](https://github.com/luli0034/rose-python-sdk)
 - [PyPI Package](https://pypi.org/project/rose-python-sdk/)
+
+## 🚀 CI/CD
+
+This project uses GitHub Actions for automated testing and publishing:
+
+- **Tests**: Automatically run on every push and pull request
+- **Publishing**: Automatically publish to PyPI when version tags are pushed
+- **Releases**: Automatically create GitHub releases
+
+For setup instructions, see [GitHub Actions Setup Guide](docs/GITHUB_ACTIONS_SETUP.md).
+
+## 📊 Status
+
+![Tests](https://github.com/luli0034/rose-python-sdk/workflows/Test/badge.svg)
+![PyPI](https://img.shields.io/pypi/v/rose-python-sdk)
+![Python](https://img.shields.io/pypi/pyversions/rose-python-sdk)
+![License](https://img.shields.io/pypi/l/rose-python-sdk)
 
 ## 📞 Support
 

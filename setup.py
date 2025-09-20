@@ -47,6 +47,7 @@ setup(
             "black",
             "flake8",
             "mypy",
+            "types-requests>=2.32.0",
         ],
     },
     keywords="recommendation, machine learning, api, sdk, rose",

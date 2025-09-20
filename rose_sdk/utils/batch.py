@@ -82,7 +82,7 @@ def split_batch_records(records: List[Dict[str, Any]], max_batch_size: int = 100
 
     batches = []
     for i in range(0, len(records), max_batch_size):
-        batch = records[i:i + max_batch_size]
+        batch = records[i : i + max_batch_size]
         batches.append(batch)
 
     return batches

@@ -44,11 +44,13 @@ jobs:
 
       - name: Type check with mypy
         run: |
+          # Install type stubs for better type checking
+          pip install types-requests
           mypy rose_sdk --ignore-missing-imports
 
       - name: Format check with black
         run: |
-          black --check rose_sdk/
+          black --check rose_sdk/ --line-length 127
 
       - name: Test with pytest
         run: |

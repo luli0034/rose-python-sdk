@@ -200,7 +200,7 @@ except RoseValidationError as e:
 - Check the [API Reference](API_REFERENCE.md) for detailed documentation
 - Look at the [examples](../examples/) directory for complete examples
 - Create an issue on GitHub for bugs or feature requests
-- Contact support at luli@kkcompany.com
+- Contact support at luli245683@gmail.com
 
 ## Environment Variables
 

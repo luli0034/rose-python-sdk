@@ -301,4 +301,4 @@ For setup instructions, see [GitHub Actions Setup Guide](docs/GITHUB_ACTIONS_SET
 
 For support and questions:
 - Create an issue on GitHub
-- Contact: luli@kkcompany.com
+- Contact: luli245683@gmail.com

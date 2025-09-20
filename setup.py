@@ -15,7 +15,7 @@ setup(
     name="rose-python-sdk",
     version="1.1.0",
     author="luli",
-    author_email="luli@kkcompany.com",
+    author_email="luli245683@gmail.com",
     description="Python SDK for Rose Recommendation Service API",
     long_description=long_description,
     long_description_content_type="text/markdown",

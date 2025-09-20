@@ -75,7 +75,7 @@ To enable code coverage reporting:
 - Pull requests to `main` or `develop` branches
 
 **What it does:**
-- Tests on Python 3.8, 3.9, 3.10, 3.11, and 3.12
+- Tests on Python 3.11 and 3.12
 - Runs linting with flake8
 - Runs type checking with mypy
 - Runs format checking with black

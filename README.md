@@ -257,7 +257,7 @@ client = RoseClient(
 
 ## 📋 Requirements
 
-- Python 3.8+
+- Python 3.11+
 - requests
 - pydantic
 - typing-extensions

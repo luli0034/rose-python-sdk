@@ -51,7 +51,7 @@ git push origin v1.1.0
 ## 📊 What Happens Automatically
 
 ### On Every Push/PR:
-- ✅ Tests run on Python 3.8, 3.9, 3.10, 3.11, 3.12
+- ✅ Tests run on Python 3.11, 3.12
 - ✅ Code linting with flake8
 - ✅ Type checking with mypy
 - ✅ Format checking with black
@@ -67,7 +67,7 @@ git push origin v1.1.0
 
 ### Test Workflow
 - **Triggers**: Push to main/develop, PRs
-- **Python Versions**: 3.8, 3.9, 3.10, 3.11, 3.12
+- **Python Versions**: 3.11, 3.12
 - **Tools**: pytest, flake8, mypy, black
 - **Coverage**: Uploads to Codecov
 

@@ -2,12 +2,12 @@
 Pipeline builder utilities for the Rose Python SDK.
 """
 
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Set
 # Datetime import removed
 
 
 # Supported scenarios from the pipeline deployer
-SUPPORTED_SCENARIOS = {
+SUPPORTED_SCENARIOS: Dict[str, Dict[str, Any]] = {
     "telasa": {
         "dataset_keys": {"interaction-log", "item-metadata"},
         "description": "Telasa recommendation pipeline with personalized and hybrid recommendations",
@@ -33,7 +33,7 @@ class PipelineBuilder:
         self.scenario_config = SUPPORTED_SCENARIOS[scenario]
 
         # Initialize with minimal required properties
-        self.properties = {"datasets": {}, "scenario": scenario}
+        self.properties: Dict[str, Any] = {"datasets": {}, "scenario": scenario}
 
     def add_dataset(self, dataset_key: str, dataset_id: str) -> "PipelineBuilder":
         """
@@ -55,7 +55,11 @@ class PipelineBuilder:
                 f"Supported dataset keys: {self.scenario_config['dataset_keys']}"
             )
 
-        self.properties["datasets"][dataset_key] = dataset_id
+        datasets = self.properties["datasets"]
+        if not isinstance(datasets, dict):
+            datasets = {}
+            self.properties["datasets"] = datasets
+        datasets[dataset_key] = dataset_id
         return self
 
     def set_custom_property(self, key: str, value: Any) -> "PipelineBuilder":
@@ -73,18 +77,29 @@ class PipelineBuilder:
 
     def get_dataset_mapping(self) -> Dict[str, str]:
         """Get the current dataset mapping (dataset_key -> dataset_id)."""
-        return self.properties["datasets"].copy()
+        datasets = self.properties["datasets"]
+        if isinstance(datasets, dict):
+            return dict(datasets)
+        return {}
 
     def is_dataset_mapping_complete(self) -> bool:
         """Check if all required dataset keys are mapped to dataset IDs."""
-        required_keys = set(self.scenario_config["dataset_keys"])
-        mapped_keys = set(self.properties["datasets"].keys())
+        required_keys: Set[str] = self.scenario_config["dataset_keys"]
+        datasets = self.properties["datasets"]
+        if isinstance(datasets, dict):
+            mapped_keys = set(datasets.keys())
+        else:
+            mapped_keys = set()
         return required_keys.issubset(mapped_keys)
 
     def get_missing_dataset_keys(self) -> List[str]:
         """Get list of dataset keys that still need to be mapped."""
-        required_keys = set(self.scenario_config["dataset_keys"])
-        mapped_keys = set(self.properties["datasets"].keys())
+        required_keys: Set[str] = self.scenario_config["dataset_keys"]
+        datasets = self.properties["datasets"]
+        if isinstance(datasets, dict):
+            mapped_keys = set(datasets.keys())
+        else:
+            mapped_keys = set()
         return list(required_keys - mapped_keys)
 
     def build(self) -> Dict[str, Any]:

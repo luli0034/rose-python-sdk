@@ -5,7 +5,7 @@ This module provides functions for building schemas from sample data,
 validating data against schemas, and managing schema information.
 """
 
-from typing import Dict, Any, List, Tuple
+from typing import Dict, Any, List, Tuple, Set
 from datetime import datetime, date, time
 from ..models.field import FieldType, Field
 from ..exceptions import RoseAPIError
@@ -132,7 +132,7 @@ def create_field_definition(field_name: str, value: Any, is_required: bool = Tru
 
 
 def build_schema_from_sample(
-    sample_records: List[Dict[str, Any]], identifier_fields: List[str] = None, required_fields: List[str] = None
+    sample_records: List[Dict[str, Any]], identifier_fields: List[str] | None = None, required_fields: List[str] | None = None
 ) -> Dict[str, Field]:
     """
     Build a schema from sample records.
@@ -149,7 +149,7 @@ def build_schema_from_sample(
         return {}
 
     # Collect all unique field names
-    all_fields = set()
+    all_fields: Set[str] = set()
     for record in sample_records:
         all_fields.update(record.keys())
 
@@ -195,7 +195,7 @@ def _get_most_common_type(types: set, values: list) -> type:
         return list(types)[0]
 
     # Count occurrences of each type
-    type_counts = {}
+    type_counts: Dict[str, int] = {}
     for value in values:
         value_type = type(value)
         type_counts[value_type] = type_counts.get(value_type, 0) + 1

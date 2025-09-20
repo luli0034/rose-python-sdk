@@ -203,11 +203,11 @@ def convert_list_to_rose_format(value_list: List[Any], element_type: Optional[st
             if element_type == "str":
                 converted_list.append({"str": str(item)})
             elif element_type == "int":
-                converted_list.append({"int": int(item)})
+                converted_list.append({"int": str(int(item))})
             elif element_type == "float":
-                converted_list.append({"float": float(item)})
+                converted_list.append({"float": str(float(item))})
             elif element_type == "bool":
-                converted_list.append({"bool": bool(item)})
+                converted_list.append({"bool": str(bool(item))})
             else:
                 converted_list.append(_convert_value_to_rose_format(item))
     else:

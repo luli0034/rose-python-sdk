@@ -78,7 +78,7 @@ class RoseClient:
         self.access_token = access_token
         self.session.headers.update({"Authorization": f"Bearer {access_token}"})
 
-    def _make_request(
+    def _make_request(  # type: ignore[misc]
         self,
         method: str,
         endpoint: str,
@@ -158,11 +158,11 @@ class RoseClient:
             return response_data
 
         except requests.exceptions.Timeout:
-            raise raise_for_status(504, {"message": "Gateway Timeout", "error": "request timed out"})
+            raise_for_status(504, {"message": "Gateway Timeout", "error": "request timed out"})
         except requests.exceptions.ConnectionError:
-            raise raise_for_status(500, {"message": "Internal Server Error", "error": "connection failed"})
+            raise_for_status(500, {"message": "Internal Server Error", "error": "connection failed"})
         except requests.exceptions.RequestException as e:
-            raise raise_for_status(500, {"message": "Internal Server Error", "error": str(e)})
+            raise_for_status(500, {"message": "Internal Server Error", "error": str(e)})
 
     def get(self, endpoint: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Make a GET request."""

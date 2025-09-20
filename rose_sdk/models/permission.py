@@ -294,7 +294,7 @@ class PermissionValidator:
         """Get human-readable names of all permissions in the set."""
         permission_names = []
         for permission in Permission:
-            if permissions & permission:
+            if permissions & permission and permission.name:
                 permission_names.append(permission.name)
         return permission_names
 

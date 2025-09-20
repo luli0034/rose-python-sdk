@@ -6,24 +6,29 @@ from typing import Dict, Any, Optional
 from .base import BaseModel
 from enum import StrEnum
 
+
 class CreatePipelineRequest(BaseModel):
     """Request model for creating a pipeline."""
+
     pipeline_name: str
     properties: Dict[str, Any]
 
 
 class UpdatePipelineRequest(BaseModel):
     """Request model for updating a pipeline."""
+
     properties: Dict[str, Any]
 
 
 class CreatePipelineResponse(BaseModel):
     """Response model for creating a pipeline."""
+
     pipeline_id: str
 
 
 class Pipeline(BaseModel):
     """Pipeline model."""
+
     account_id: str
     pipeline_name: str
     pipeline_id: str

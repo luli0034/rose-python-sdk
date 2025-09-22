@@ -36,7 +36,7 @@ class PipelineBuilder:
         ...     .add_dataset("item-metadata", "metadata_dataset_456")
         ...     .set_custom_property("custom_param", "value")
         ...     .build())
-        >>> 
+        >>>
         >>> # Use with client
         >>> pipeline = client.pipelines.create(**pipeline_config)
 

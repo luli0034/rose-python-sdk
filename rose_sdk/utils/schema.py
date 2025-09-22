@@ -261,13 +261,13 @@ def validate_and_align_records(
         >>> # Get schema from existing dataset
         >>> dataset = client.datasets.get("dataset_123")
         >>> schema = dataset.schema
-        >>> 
+        >>>
         >>> # Prepare user data
         >>> user_data = [
         ...     {"user_id": "user1", "rating": "4.5", "category": "electronics"},
         ...     {"user_id": "user2", "rating": 3.8, "category": "books", "extra_field": "ignored"}
         ... ]
-        >>> 
+        >>>
         >>> # Validate and align data
         >>> validated_data, warnings = validate_and_align_records(user_data, schema)
         >>> print(f"Validated {len(validated_data)} records")

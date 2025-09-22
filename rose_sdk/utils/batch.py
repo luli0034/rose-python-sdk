@@ -30,7 +30,7 @@ def prepare_batch_data(records: List[Dict[str, Any]]) -> bytes:
         ...     {"user_id": {"str": "user2"}, "rating": {"float": "3.8"}}
         ... ]
         >>> compressed_data = prepare_batch_data(records)
-        >>> 
+        >>>
         >>> # Use with batch upload
         >>> headers = get_batch_headers()
         >>> response = client.datasets.records.upload_batch(

@@ -1,5 +1,9 @@
 # Rose Python SDK
 
+<div align="center">
+  <img src="./docs/assets/images/rose-logo.png" alt="Rose Python SDK" width="200" />
+</div>
+
 A comprehensive Python SDK for interacting with the Rose Recommendation Service API. This SDK provides a clean, type-safe interface for managing datasets, pipelines, roles, and recommendations.
 
 ## 🚀 Features
@@ -84,9 +88,8 @@ print(f"Recommendations: {recommendations.data}")
 
 ## 📚 Documentation
 
-- **[Getting Started Guide](docs/GETTING_STARTED.md)** - Quick start guide for new users
-- **[API Reference](docs/API_REFERENCE.md)** - Complete API documentation
-- **[Examples Guide](docs/EXAMPLES.md)** - Comprehensive examples and use cases
+- **[Complete Documentation](https://luli0034.github.io/rose-python-sdk/)** - Full documentation with API reference, examples, and guides
+- **[GitHub Repository](https://github.com/luli0034/rose-python-sdk)** - Source code and issue tracking
 - **[Contributing Guide](CONTRIBUTING.md)** - How to contribute to the project
 
 ## 📚 Core Modules
@@ -288,7 +291,7 @@ This project uses GitHub Actions for automated testing and publishing:
 - **Publishing**: Automatically publish to PyPI when version tags are pushed
 - **Releases**: Automatically create GitHub releases
 
-For setup instructions, see [GitHub Actions Setup Guide](docs/GITHUB_ACTIONS_SETUP.md).
+For setup instructions, see the [Contributing Guide](CONTRIBUTING.md).
 
 ## 📊 Status
 

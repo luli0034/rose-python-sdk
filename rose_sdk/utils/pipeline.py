@@ -9,10 +9,6 @@ from typing import Dict, Any, List, Set
 
 # Supported scenarios from the pipeline deployer
 SUPPORTED_SCENARIOS: Dict[str, Dict[str, Any]] = {
-    "telasa": {
-        "dataset_keys": {"interaction-log", "item-metadata"},
-        "description": "Telasa recommendation pipeline with personalized and hybrid recommendations",
-    },
     "realtime_leaderboard": {
         "dataset_keys": {"interaction", "metadata"},
         "description": "Realtime leaderboard pipeline for item ranking and user favorites",
@@ -21,7 +17,34 @@ SUPPORTED_SCENARIOS: Dict[str, Dict[str, Any]] = {
 
 
 class PipelineBuilder:
-    """Builder for creating pipeline configurations."""
+    """
+    Builder for creating pipeline configurations with intuitive API.
+
+    The PipelineBuilder provides a fluent interface for creating recommendation
+    pipelines. It handles the complexity of dataset mapping and ensures that
+    all required datasets for a given scenario are properly configured.
+
+    Args:
+        account_id: The account ID for the pipeline
+        pipeline_name: Name of the pipeline
+        scenario: Pipeline scenario (e.g., 'realtime_leaderboard')
+
+    Example:
+        >>> builder = PipelineBuilder("my-account", "recommendation-pipeline", "realtime_leaderboard")
+        >>> pipeline_config = (builder
+        ...     .add_dataset("interaction-log", "interaction_dataset_123")
+        ...     .add_dataset("item-metadata", "metadata_dataset_456")
+        ...     .set_custom_property("custom_param", "value")
+        ...     .build())
+        >>>
+        >>> # Use with client
+        >>> pipeline = client.pipelines.create(**pipeline_config)
+
+    Note:
+        - Each scenario requires specific dataset keys
+        - Use get_supported_scenarios() to see available scenarios and their requirements
+        - The builder validates that all required datasets are provided before building
+    """
 
     def __init__(self, account_id: str, pipeline_name: str, scenario: str):
         self.account_id = account_id
@@ -38,17 +61,27 @@ class PipelineBuilder:
 
     def add_dataset(self, dataset_key: str, dataset_id: str) -> "PipelineBuilder":
         """
-        Map a user's dataset to a pipeline dataset key.
+        Add a dataset mapping to the pipeline configuration.
+
+        Maps a pipeline-defined dataset key to a user-created dataset ID.
+        The dataset_key is defined by the pipeline scenario, while dataset_id
+        is the actual ID of a dataset created by the user.
 
         Args:
-            dataset_key: The dataset key defined by the pipeline scenario (e.g., "interaction", "metadata")
-            dataset_id: The actual dataset ID created by dataset management (e.g., "AHgyJijrQ5GPnHZgKE_Hgg")
+            dataset_key: Pipeline-defined key (e.g., 'interaction', 'metadata')
+            dataset_id: User-created dataset ID (e.g., 'AHgyJijrQ5GPnHZgKE_Hgg')
+
+        Returns:
+            Self for method chaining
 
         Example:
-            # User has datasets: "my_interactions" (ID: abc123) and "my_items" (ID: def456)
-            # Pipeline needs: "interaction" and "metadata" keys
-            builder.add_dataset("interaction", "abc123")  # Maps user's "my_interactions" to pipeline's "interaction"
-            builder.add_dataset("metadata", "def456")     # Maps user's "my_items" to pipeline's "metadata"
+            >>> builder = PipelineBuilder("account", "pipeline", "realtime_leaderboard")
+            >>> builder.add_dataset("interaction-log", "interaction_dataset_123")
+            >>> builder.add_dataset("item-metadata", "metadata_dataset_456")
+
+        Note:
+            - Use get_supported_scenarios() to see required dataset keys for each scenario
+            - The builder will validate that all required datasets are provided
         """
         if dataset_key not in self.scenario_config["dataset_keys"]:
             raise ValueError(
@@ -108,29 +141,6 @@ class PipelineBuilder:
         return {"account_id": self.account_id, "pipeline_name": self.pipeline_name, "properties": self.properties}
 
 
-def create_telasa_pipeline(
-    account_id: str, pipeline_name: str, interaction_log_dataset_id: str, item_metadata_dataset_id: str
-) -> Dict[str, Any]:
-    """
-    Create a Telasa pipeline configuration.
-
-    Args:
-        account_id: The account ID
-        pipeline_name: The pipeline name
-        interaction_log_dataset_id: The interaction-log dataset ID
-        item_metadata_dataset_id: The item-metadata dataset ID
-
-    Returns:
-        Pipeline configuration dictionary
-    """
-    return (
-        PipelineBuilder(account_id, pipeline_name, scenario="telasa")
-        .add_dataset("interaction-log", interaction_log_dataset_id)
-        .add_dataset("item-metadata", item_metadata_dataset_id)
-        .build()
-    )
-
-
 def create_realtime_leaderboard_pipeline(
     account_id: str, pipeline_name: str, interaction_dataset_id: str, metadata_dataset_id: str
 ) -> Dict[str, Any]:
@@ -163,7 +173,7 @@ def create_pipeline(
     Args:
         account_id: The account ID
         pipeline_name: The pipeline name
-        scenario: The pipeline scenario (telasa, realtime_leaderboard)
+        scenario: The pipeline scenario (realtime_leaderboard)
         dataset_mapping: Dictionary mapping dataset keys to dataset names
                         e.g., {"interaction": "user_dataset_123", "metadata": "user_dataset_456"}
         **kwargs: Additional configuration parameters (optional)
@@ -196,7 +206,7 @@ def create_custom_pipeline(
     Args:
         account_id: The account ID
         pipeline_name: The pipeline name
-        scenario: The pipeline scenario (telasa, realtime_leaderboard)
+        scenario: The pipeline scenario (realtime_leaderboard)
         datasets: Dictionary mapping dataset names to dataset IDs
         **kwargs: Additional configuration parameters
 

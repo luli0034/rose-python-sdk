@@ -239,21 +239,46 @@ def validate_and_align_records(
     records: List[Dict[str, Any]], dataset_schema: Dict[str, Any], strict_validation: bool = True
 ) -> Tuple[List[Dict[str, Any]], List[str]]:
     """
-    Validate and align records against a dataset schema.
+    Validate and align user records against a dataset schema.
 
-    This function checks if the user's data matches the dataset schema requirements
-    and provides helpful feedback for alignment.
+    This function ensures that user-provided records conform to the expected
+    schema format, performing type conversion, field validation, and data
+    alignment. It's particularly useful when users have data that needs to
+    be prepared for upload to an existing dataset.
 
     Args:
-        records: List of records to validate and align
-        dataset_schema: The dataset schema definition
-        strict_validation: If True, enforce strict validation. If False, provide warnings.
+        records: List of user records to validate and align
+        dataset_schema: Schema definition from an existing dataset
+        strict_validation: If True, raises exceptions on validation errors.
+                          If False, returns warnings and continues processing.
 
     Returns:
-        Tuple of (aligned_records, validation_warnings)
+        Tuple containing:
+        - List of validated and aligned records ready for upload
+        - List of warning messages (if any issues were found)
 
-    Raises:
-        SchemaValidationError: If validation fails
+    Example:
+        >>> # Get schema from existing dataset
+        >>> dataset = client.datasets.get("dataset_123")
+        >>> schema = dataset.schema
+        >>>
+        >>> # Prepare user data
+        >>> user_data = [
+        ...     {"user_id": "user1", "rating": "4.5", "category": "electronics"},
+        ...     {"user_id": "user2", "rating": 3.8, "category": "books", "extra_field": "ignored"}
+        ... ]
+        >>>
+        >>> # Validate and align data
+        >>> validated_data, warnings = validate_and_align_records(user_data, schema)
+        >>> print(f"Validated {len(validated_data)} records")
+        >>> if warnings:
+        ...     print("Warnings:", warnings)
+
+    Note:
+        - String numbers are automatically converted to appropriate numeric types
+        - Extra fields not in schema are removed (not in strict mode) or cause errors (strict mode)
+        - Missing required fields cause validation errors
+        - Type mismatches are handled with appropriate conversions when possible
     """
     if not records:
         return [], []

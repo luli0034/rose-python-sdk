@@ -12,14 +12,37 @@ from typing import List, Dict, Any
 
 def prepare_batch_data(records: List[Dict[str, Any]]) -> bytes:
     """
-    Converts a list of records to NDJSON format and compresses it with gzip.
-    The records are expected to be in the Rose server's Value format.
+    Prepare batch data for upload with NDJSON formatting and gzip compression.
+
+    This function converts a list of records into the format required for batch
+    uploads to the Rose API. It handles NDJSON formatting and gzip compression
+    automatically, making it easy to upload large datasets efficiently.
 
     Args:
-        records: List of records in Rose API format
+        records: List of records in Rose API format to prepare for batch upload
 
     Returns:
-        Compressed NDJSON data as bytes
+        Compressed NDJSON data as bytes, ready for upload
+
+    Example:
+        >>> records = [
+        ...     {"user_id": {"str": "user1"}, "rating": {"float": "4.5"}},
+        ...     {"user_id": {"str": "user2"}, "rating": {"float": "3.8"}}
+        ... ]
+        >>> compressed_data = prepare_batch_data(records)
+        >>> 
+        >>> # Use with batch upload
+        >>> headers = get_batch_headers()
+        >>> response = client.datasets.records.upload_batch(
+        ...     dataset_id="dataset_123",
+        ...     data=compressed_data,
+        ...     headers=headers
+        ... )
+
+    Note:
+        - Records should be in Rose API format (use convert_records_to_rose_format first)
+        - Data is compressed with gzip for efficient transfer
+        - Use with get_batch_headers() for proper HTTP headers
     """
     ndjson_data = "\n".join(json.dumps(record) for record in records)
     compressed_data = gzip.compress(ndjson_data.encode("utf-8"))

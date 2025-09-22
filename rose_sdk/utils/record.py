@@ -15,19 +15,31 @@ def convert_record_to_rose_format(record: Dict[str, Any]) -> Dict[str, Any]:
     """
     Convert a simple Python dictionary record to Rose API format.
 
+    The Rose API expects data in a specific format where each value is wrapped
+    in a type-specific object. This function handles the conversion automatically
+    by inferring the data type and wrapping values appropriately.
+
     Args:
-        record: Simple dictionary record
+        record: Simple dictionary record with native Python types
 
     Returns:
-        Dict in Rose API format
+        Dictionary in Rose API format with type-wrapped values
 
     Example:
-        Input: {"user_id": "user123", "rating": 4.5, "active": True}
-        Output: {
+        >>> record = {"user_id": "user123", "rating": 4.5, "active": True}
+        >>> convert_record_to_rose_format(record)
+        {
             "user_id": {"str": "user123"},
-            "rating": {"float": 4.5},
-            "active": {"bool": True}
+            "rating": {"float": "4.5"},
+            "active": {"bool": "True"}
         }
+
+    Note:
+        - String values are wrapped in {"str": value}
+        - Numeric values are wrapped in {"int": value} or {"float": value}
+        - Boolean values are wrapped in {"bool": value}
+        - Lists and dictionaries are recursively converted
+        - None values are converted to {"null": None}
     """
     rose_record = {}
 
@@ -98,11 +110,11 @@ def convert_rose_record_to_simple(rose_record: Dict[str, Any]) -> Dict[str, Any]
 
     Example:
         Input: {
-            "user_id": {"str": "user123"},
-            "rating": {"float": 4.5},
-            "active": {"bool": True}
-        }
-        Output: {"user_id": "user123", "rating": 4.5, "active": True}
+        "user_id": {"str": "user123"},
+        "rating": {"float": 4.5},
+        "active": {"bool": True}
+    }
+    Output: {"user_id": "user123", "rating": 4.5, "active": True}
     """
     simple_record = {}
 

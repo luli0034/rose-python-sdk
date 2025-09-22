@@ -160,7 +160,6 @@ dataset_mapping = {
 | Scenario | Required Dataset Keys | Description |
 |----------|----------------------|-------------|
 | `realtime_leaderboard` | `interaction`, `metadata` | Real-time item ranking and user favorites |
-| `telasa` | `interaction-log`, `item-metadata` | Personalized and hybrid recommendations |
 
 ## Common Patterns
 

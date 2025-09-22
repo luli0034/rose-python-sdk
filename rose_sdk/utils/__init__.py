@@ -50,7 +50,6 @@ from .batch import prepare_batch_data, get_batch_headers, validate_batch_records
 from .pipeline import (
     PipelineBuilder,
     create_pipeline,
-    create_telasa_pipeline,
     create_realtime_leaderboard_pipeline,
     create_custom_pipeline,
     get_supported_scenarios,
@@ -96,7 +95,6 @@ __all__ = [
     # Pipeline creation and management
     "PipelineBuilder",
     "create_pipeline",
-    "create_telasa_pipeline",
     "create_realtime_leaderboard_pipeline",
     "create_custom_pipeline",
     "get_supported_scenarios",

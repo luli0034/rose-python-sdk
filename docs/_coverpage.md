@@ -1,5 +1,9 @@
 # Rose Python SDK
 
+<div align="center">
+  <img src="./assets/images/rose-logo.png" alt="Rose Python SDK" width="200" />
+</div>
+
 > A comprehensive Python SDK for interacting with the Rose Recommendation Service API
 
 [![PyPI version](https://badge.fury.io/py/rose-python-sdk.svg)](https://badge.fury.io/py/rose-python-sdk)
@@ -20,7 +24,7 @@
 ## Quick Start
 
 ```python
-from rose_sdk import RoseClient, quick_create_dataset_with_data
+from rose_sdk import RoseClient
 
 # Initialize the client
 client = RoseClient(
@@ -28,35 +32,17 @@ client = RoseClient(
     access_token="your_access_token"
 )
 
-# Create a dataset with sample data
-dataset_id = quick_create_dataset_with_data(
-    client=client,
+# Create a dataset
+dataset = client.datasets.create(
     name="user_interactions",
-    records=[
-        {"user_id": "user1", "item_id": "item1", "rating": 4.5},
-        {"user_id": "user1", "item_id": "item2", "rating": 3.0},
-        {"user_id": "user2", "item_id": "item1", "rating": 5.0}
-    ],
-    identifier_fields=["user_id", "item_id"]
-)
-
-# Create a pipeline
-pipeline = client.pipelines.create(
-    name="collaborative_filtering",
-    properties={
-        "algorithm": "matrix_factorization",
-        "factors": 50,
-        "iterations": 100
-    }
+    schema={"user_id": "str", "item_id": "str", "rating": "float"}
 )
 
 # Get recommendations
 recommendations = client.recommendations.get(
     query_id="your_query_id",
-    parameters={"user_id": "user1"}
+    parameters={"user_id": "user123"}
 )
-
-print(f"Recommendations: {recommendations.data}")
 ```
 
 ## Installation
@@ -65,5 +51,22 @@ print(f"Recommendations: {recommendations.data}")
 pip install rose-python-sdk
 ```
 
+## Documentation
+
+- [Getting Started](getting-started.md) - Learn the basics
+- [API Reference](api-reference/overview.md) - Complete API documentation
+- [Examples](examples/basic-examples.md) - Code examples and tutorials
+
+## Links
+
+- [GitHub Repository](https://github.com/luli0034/rose-python-sdk)
+- [PyPI Package](https://pypi.org/project/rose-python-sdk/)
+- [Issue Tracker](https://github.com/luli0034/rose-python-sdk/issues)
+
+## License
+
+This project is licensed under the MIT License - see the [License](license.md) file for details.
+
+---
 
 **Made with ❤️ for the Rose community**

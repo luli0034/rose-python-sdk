@@ -178,8 +178,8 @@ def build_schema_from_sample(
         # Get most common non-None value for type inference
         non_none_values = [v for v in field_values if v is not None]
         if non_none_values:
-            # Use the most common type
-            sample_value = _get_most_common_type({type(v) for v in non_none_values}, non_none_values)
+            # Use the first non-None value for type inference
+            sample_value = non_none_values[0]
         else:
             sample_value = None
 
@@ -187,21 +187,6 @@ def build_schema_from_sample(
         schema[field_name] = create_field_definition(field_name, sample_value, is_required, is_identifier)
 
     return schema
-
-
-def _get_most_common_type(types: set, values: list) -> type:
-    """Get the most common type from a set of types and values."""
-    if len(types) == 1:
-        return list(types)[0]
-
-    # Count occurrences of each type
-    type_counts: Dict[str, int] = {}
-    for value in values:
-        value_type = type(value)
-        type_counts[value_type] = type_counts.get(value_type, 0) + 1
-
-    # Return the most common type
-    return max(type_counts.items(), key=lambda x: x[1])[0]
 
 
 def build_schema_from_dict(schema_dict: Dict[str, Any]) -> Dict[str, Field]:

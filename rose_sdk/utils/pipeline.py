@@ -25,12 +25,12 @@ class PipelineBuilder:
     all required datasets for a given scenario are properly configured.
 
     Args:
-        account_id: The account ID for the pipeline
         pipeline_name: Name of the pipeline
         scenario: Pipeline scenario (e.g., 'realtime_leaderboard')
+        account_id: The account ID for the pipeline (optional, will be derived from access token)
 
     Example:
-        >>> builder = PipelineBuilder("my-account", "recommendation-pipeline", "realtime_leaderboard")
+        >>> builder = PipelineBuilder("recommendation-pipeline", "realtime_leaderboard")
         >>> pipeline_config = (builder
         ...     .add_dataset("interaction-log", "interaction_dataset_123")
         ...     .add_dataset("item-metadata", "metadata_dataset_456")
@@ -46,8 +46,7 @@ class PipelineBuilder:
         - The builder validates that all required datasets are provided before building
     """
 
-    def __init__(self, account_id: str, pipeline_name: str, scenario: str):
-        self.account_id = account_id
+    def __init__(self, pipeline_name: str, scenario: str, account_id: str = ""):
         self.pipeline_name = pipeline_name
 
         if scenario not in SUPPORTED_SCENARIOS:
@@ -138,7 +137,7 @@ class PipelineBuilder:
 
     def build(self) -> Dict[str, Any]:
         """Build the pipeline configuration."""
-        return {"account_id": self.account_id, "pipeline_name": self.pipeline_name, "properties": self.properties}
+        return {"pipeline_name": self.pipeline_name, "properties": self.properties}
 
 
 def create_realtime_leaderboard_pipeline(
@@ -157,7 +156,7 @@ def create_realtime_leaderboard_pipeline(
         Pipeline configuration dictionary
     """
     return (
-        PipelineBuilder(account_id, pipeline_name, scenario="realtime_leaderboard")
+        PipelineBuilder(pipeline_name, scenario="realtime_leaderboard", account_id=account_id)
         .add_dataset("interaction", interaction_dataset_id)
         .add_dataset("metadata", metadata_dataset_id)
         .build()
@@ -165,13 +164,12 @@ def create_realtime_leaderboard_pipeline(
 
 
 def create_pipeline(
-    account_id: str, pipeline_name: str, scenario: str, dataset_mapping: Dict[str, str], **kwargs
+    pipeline_name: str, scenario: str, dataset_mapping: Dict[str, str], **kwargs
 ) -> Dict[str, Any]:
     """
     Create a pipeline configuration with minimal configuration.
 
     Args:
-        account_id: The account ID
         pipeline_name: The pipeline name
         scenario: The pipeline scenario (realtime_leaderboard)
         dataset_mapping: Dictionary mapping dataset keys to dataset names
@@ -181,7 +179,8 @@ def create_pipeline(
     Returns:
         Pipeline configuration dictionary
     """
-    builder = PipelineBuilder(account_id, pipeline_name, scenario=scenario)
+    # Account ID will be derived from the access token when creating the pipeline
+    builder = PipelineBuilder(pipeline_name, scenario)
 
     # Add datasets
     for dataset_key, dataset_name in dataset_mapping.items():
@@ -198,13 +197,12 @@ def create_pipeline(
 
 
 def create_custom_pipeline(
-    account_id: str, pipeline_name: str, scenario: str, datasets: Dict[str, str], **kwargs
+    pipeline_name: str, scenario: str, datasets: Dict[str, str], **kwargs
 ) -> Dict[str, Any]:
     """
     Create a custom pipeline configuration (alias for create_pipeline).
 
     Args:
-        account_id: The account ID
         pipeline_name: The pipeline name
         scenario: The pipeline scenario (realtime_leaderboard)
         datasets: Dictionary mapping dataset names to dataset IDs
@@ -213,7 +211,7 @@ def create_custom_pipeline(
     Returns:
         Pipeline configuration dictionary
     """
-    return create_pipeline(account_id, pipeline_name, scenario, datasets, **kwargs)
+    return create_pipeline(pipeline_name, scenario, datasets, **kwargs)
 
 
 def get_supported_scenarios() -> Dict[str, Dict[str, Any]]:

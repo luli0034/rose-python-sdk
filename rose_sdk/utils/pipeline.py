@@ -163,9 +163,7 @@ def create_realtime_leaderboard_pipeline(
     )
 
 
-def create_pipeline(
-    pipeline_name: str, scenario: str, dataset_mapping: Dict[str, str], **kwargs
-) -> Dict[str, Any]:
+def create_pipeline(pipeline_name: str, scenario: str, dataset_mapping: Dict[str, str], **kwargs) -> Dict[str, Any]:
     """
     Create a pipeline configuration with minimal configuration.
 
@@ -196,9 +194,7 @@ def create_pipeline(
     return builder.build()
 
 
-def create_custom_pipeline(
-    pipeline_name: str, scenario: str, datasets: Dict[str, str], **kwargs
-) -> Dict[str, Any]:
+def create_custom_pipeline(pipeline_name: str, scenario: str, datasets: Dict[str, str], **kwargs) -> Dict[str, Any]:
     """
     Create a custom pipeline configuration (alias for create_pipeline).
 

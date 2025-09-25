@@ -16,9 +16,10 @@ class BatchIDInfo(BaseModel):
 
 class ImportFileInfo(BaseModel):
     """Import file information model."""
-    
+
     header: Dict[str, Any]
     url: str
+
 
 class BatchRecordsImportInfo(BaseModel):
     """Batch records import info model."""

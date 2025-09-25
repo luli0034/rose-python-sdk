@@ -4,12 +4,13 @@ Recommendation service for the Rose Python SDK.
 
 from typing import List, Dict, Any, Optional
 from ..models.recommendation import Recommendation, RecommendationExportInfo, BulkRequest
+from ..client import RoseClient
 
 
 class RecommendationService:
     """Service for recommendation operations."""
 
-    def __init__(self, client):
+    def __init__(self, client: RoseClient):
         self.client = client
 
     def get(self, query_id: str, parameters: Optional[Dict[str, Any]] = None) -> Recommendation:

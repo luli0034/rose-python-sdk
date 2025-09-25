@@ -4,12 +4,13 @@ Account service for the Rose Python SDK.
 
 from typing import Optional
 from ..models.role import Role, RoleWithToken
+from ..client import RoseClient
 
 
 class AccountService:
     """Service for account management operations."""
 
-    def __init__(self, client):
+    def __init__(self, client: RoseClient):
         self.client = client
 
     def create(self, account_id: str, expiration: Optional[int] = None) -> Role:

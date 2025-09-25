@@ -4,12 +4,13 @@ Role service for the Rose Python SDK.
 
 from typing import List, Optional
 from ..models.role import Role, RoleWithToken, CreateRoleRequest, UpdateRoleRequest
+from ..client import RoseClient
 
 
 class RoleService:
     """Service for role management operations."""
 
-    def __init__(self, client):
+    def __init__(self, client: RoseClient):
         self.client = client
 
     def list(self) -> List[Role]:

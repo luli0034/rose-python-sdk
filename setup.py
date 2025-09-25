@@ -23,7 +23,7 @@ setup(
     project_urls={
         "Bug Reports": "https://github.com/luli0034/rose-python-sdk/issues",
         "Source": "https://github.com/luli0034/rose-python-sdk",
-        "Documentation": "https://github.com/luli0034/rose-python-sdk/tree/main/docs",
+        "Documentation": "https://luli0034.github.io/rose-python-sdk/#",
     },
     packages=find_packages(),
     classifiers=[

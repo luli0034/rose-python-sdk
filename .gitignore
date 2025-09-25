@@ -186,3 +186,5 @@ Desktop.ini
 # Test files
 local_*.py
 *_test.py
+
+demo*

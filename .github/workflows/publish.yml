@@ -26,6 +26,29 @@ jobs:
           python -m pip install --upgrade pip
           pip install build twine
 
+      - name: Extract version from tag
+        id: version
+        run: |
+          # Remove 'v' prefix from tag (e.g., v1.0.0 -> 1.0.0)
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Extracted version: $VERSION"
+
+      - name: Update setup.py version
+        run: |
+          # Update setup.py with the tag version using Python for better reliability
+          python -c "
+          import re
+          version = '${{ steps.version.outputs.version }}'
+          with open('setup.py', 'r') as f:
+              content = f.read()
+          # Replace version line
+          content = re.sub(r'version=\"[^\"]*\"', f'version=\"{version}\"', content)
+          with open('setup.py', 'w') as f:
+              f.write(content)
+          print(f'Updated setup.py version to {version}')
+          "
+
       - name: Build package
         run: |
           python -m build

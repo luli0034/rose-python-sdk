@@ -279,7 +279,7 @@ MIT License - see LICENSE file for details.
 
 ## 🔗 Links
 
-- [API Documentation](https://raas.kkstream.tech/doc/rose/v1.1/)
+- [API Documentation](https://luli0034.github.io/rose-python-sdk/#/api-reference/overview)
 - [GitHub Repository](https://github.com/luli0034/rose-python-sdk)
 - [PyPI Package](https://pypi.org/project/rose-python-sdk/)
 

@@ -13,7 +13,7 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
 
 setup(
     name="rose-python-sdk",
-    version="1.1.0",
+    version="0.0.0",
     author="luli",
     author_email="luli245683@gmail.com",
     description="Python SDK for Rose Recommendation Service API",

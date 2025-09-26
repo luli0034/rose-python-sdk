@@ -2,16 +2,18 @@
 Pipeline service for the Rose Python SDK.
 """
 
-from typing import List, Dict, Any
+from typing import List, Dict, Any, TYPE_CHECKING
 from ..models.pipeline import Pipeline, CreatePipelineRequest, CreatePipelineResponse, PipelineStatus
 from ..models.query import Query
-from ..client import RoseClient
+
+if TYPE_CHECKING:
+    from ..client import RoseClient
 
 
 class PipelineService:
     """Service for pipeline management operations."""
 
-    def __init__(self, client: RoseClient):
+    def __init__(self, client: "RoseClient"):
         self.client = client
 
     def list(self) -> List[Pipeline]:

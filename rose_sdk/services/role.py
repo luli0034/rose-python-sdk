@@ -2,15 +2,17 @@
 Role service for the Rose Python SDK.
 """
 
-from typing import List, Optional
+from typing import List, Optional, TYPE_CHECKING
 from ..models.role import Role, RoleWithToken, CreateRoleRequest, UpdateRoleRequest
-from ..client import RoseClient
+
+if TYPE_CHECKING:
+    from ..client import RoseClient
 
 
 class RoleService:
     """Service for role management operations."""
 
-    def __init__(self, client: RoseClient):
+    def __init__(self, client: "RoseClient"):
         self.client = client
 
     def list(self) -> List[Role]:

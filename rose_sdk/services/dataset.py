@@ -3,18 +3,20 @@ Dataset service for the Rose Python SDK.
 """
 
 import json
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, TYPE_CHECKING
 from ..models.dataset import Dataset, CreateDatasetRequest, CreateDatasetResponse
 from ..models.record import Record
 from ..models.batch import BatchRecordsImportInfo
 from ..utils.batch import prepare_batch_data, get_batch_headers
-from ..client import RoseClient
+
+if TYPE_CHECKING:
+    from ..client import RoseClient
 
 
 class DatasetService:
     """Service for dataset management operations."""
 
-    def __init__(self, client: RoseClient):
+    def __init__(self, client: "RoseClient"):
         self.client = client
         self.records = DatasetRecordsService(client)
         self.batch = DatasetBatchService(client)
@@ -71,7 +73,7 @@ class DatasetService:
 class DatasetRecordsService:
     """Service for dataset records operations."""
 
-    def __init__(self, client: RoseClient):
+    def __init__(self, client: "RoseClient"):
         self.client = client
 
     def list(self, dataset_id: str, size: Optional[int] = None) -> List[Record]:
@@ -152,7 +154,7 @@ class DatasetRecordsService:
 class DatasetBatchService:
     """Service for dataset batch operations."""
 
-    def __init__(self, client: RoseClient):
+    def __init__(self, client: "RoseClient"):
         self.client = client
 
     def get_import_info(

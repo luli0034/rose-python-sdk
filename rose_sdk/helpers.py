@@ -148,35 +148,6 @@ def quick_batch_upload(
         raise ValueError("Mode must be 'append' or 'overwrite'")
 
 
-def quick_get_recommendations(
-    client: RoseClient, query_id: str, user_ids: List[str], batch: bool = False
-) -> List[Dict[str, Any]]:
-    """
-    Quickly get recommendations for multiple users.
-
-    Args:
-        client: RoseClient instance
-        query_id: Query ID
-        user_ids: List of user IDs
-        batch: Whether to use batch query (more efficient for multiple users)
-
-    Returns:
-        List of recommendation results
-    """
-    if batch and len(user_ids) > 1:
-        # Use batch query
-        payload = [{"user_id": user_id} for user_id in user_ids]
-        recommendations = client.recommendations.batch_query(query_id, payload)
-        return [rec.data for rec in recommendations]
-    else:
-        # Use individual queries
-        results = []
-        for user_id in user_ids:
-            recommendation = client.recommendations.get(query_id=query_id, parameters={"user_id": user_id})
-            results.append(recommendation.data)
-        return results
-
-
 def quick_setup_recommendation_system(
     client: RoseClient,
     dataset_name: str,

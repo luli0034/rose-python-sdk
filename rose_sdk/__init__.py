@@ -32,7 +32,6 @@ from .helpers import (
     quick_get_records,
     quick_create_dataset_with_data,
     quick_batch_upload,
-    quick_get_recommendations,
     quick_setup_recommendation_system,
     get_dataset_summary,
 )

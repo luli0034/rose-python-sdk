@@ -2,8 +2,14 @@
 Recommendation service for the Rose Python SDK.
 """
 
-from typing import List, Dict, Any, Optional
-from ..models.recommendation import Recommendation, RecommendationExportInfo, BulkRequest
+from typing import List, Dict, Any, Optional, Union
+from ..models.recommendation import (
+    Recommendation,
+    RecommendationExportInfo,
+    BulkRequest,
+    AggregationRecommendation,
+    RecommendationItem,
+)
 
 
 class RecommendationService:
@@ -12,25 +18,27 @@ class RecommendationService:
     def __init__(self, client):
         self.client = client
 
-    def get(self, query_id: str, parameters: Optional[Dict[str, Any]] = None) -> Recommendation:
+    def get(
+        self, query_id: str, parameters: Optional[Dict[str, Any]] = None
+    ) -> Union[Recommendation, AggregationRecommendation]:
         """
         Get recommendation results from a specific query.
+        Automatically detects the response type and returns the appropriate model.
 
         Args:
             query_id: The query ID
             parameters: Parameters for the query
 
         Returns:
-            Recommendation object
+            Recommendation or AggregationRecommendation object based on response structure
         """
-        params = {}
-        if parameters:
-            # Flatten parameters for query string
-            for key, value in parameters.items():
-                params[f"parameters[{key}]"] = value
 
-        response = self.client.get(f"/recommendations/{query_id}", params=params)
-        return Recommendation(**response["data"])
+        response = self.client.get(f"/recommendations/{query_id}", params=parameters)
+        # Check if the response has aggregation structure
+        if "results" in response["data"] and "buckets" in response["data"]["results"]:
+            return AggregationRecommendation(**response["data"])
+        else:
+            return Recommendation(**response["data"])
 
     def batch_query(self, query_id: str, payload: List[Dict[str, Any]]) -> List[Recommendation]:
         """

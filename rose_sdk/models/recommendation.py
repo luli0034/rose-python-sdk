@@ -32,24 +32,22 @@ class BulkRequest(BaseModel):
 
 class RecommendationItem(BaseModel):
     """Individual recommendation item with flexible structure."""
-    
+
     key: List[str]
     key_as_string: str
     doc_count: int
     # Allow any additional fields dynamically
     model_config = {"extra": "allow"}
-    
-    
+
     def get_field(self, field_name: str, default: Any = None) -> Any:
         """Get a field value by name, returning default if not found."""
         return getattr(self, field_name, default)
-    
-    
+
     def get_metric(self, metric_name: str) -> Optional[float]:
         """Get a metric value, handling nested structure like {'value': 3.0}."""
         metric = getattr(self, metric_name, None)
-        if isinstance(metric, dict) and 'value' in metric:
-            return metric['value']
+        if isinstance(metric, dict) and "value" in metric:
+            return metric["value"]
         elif isinstance(metric, (int, float)):
             return float(metric)
         return None
@@ -57,7 +55,7 @@ class RecommendationItem(BaseModel):
 
 class AggregationResults(BaseModel):
     """Aggregation results containing buckets and metadata."""
-    
+
     doc_count_error_upper_bound: int
     sum_other_doc_count: int
     buckets: List[RecommendationItem]
@@ -65,7 +63,5 @@ class AggregationResults(BaseModel):
 
 class AggregationRecommendation(BaseModel):
     """Aggregation-based recommendation model."""
-    
+
     results: AggregationResults
-
-

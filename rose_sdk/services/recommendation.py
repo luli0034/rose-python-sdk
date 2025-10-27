@@ -4,11 +4,11 @@ Recommendation service for the Rose Python SDK.
 
 from typing import List, Dict, Any, Optional, Union
 from ..models.recommendation import (
-    Recommendation, 
-    RecommendationExportInfo, 
+    Recommendation,
+    RecommendationExportInfo,
     BulkRequest,
     AggregationRecommendation,
-    RecommendationItem
+    RecommendationItem,
 )
 
 
@@ -18,7 +18,9 @@ class RecommendationService:
     def __init__(self, client):
         self.client = client
 
-    def get(self, query_id: str, parameters: Optional[Dict[str, Any]] = None) -> Union[Recommendation, AggregationRecommendation]:
+    def get(
+        self, query_id: str, parameters: Optional[Dict[str, Any]] = None
+    ) -> Union[Recommendation, AggregationRecommendation]:
         """
         Get recommendation results from a specific query.
         Automatically detects the response type and returns the appropriate model.

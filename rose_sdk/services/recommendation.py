@@ -53,7 +53,12 @@ class RecommendationService:
         """
         data = BulkRequest(payload=payload)
         response = self.client.post(f"/recommendations/{query_id}:batchQuery", data=data.model_dump())
-        return [Recommendation(**rec_data) for rec_data in response["data"]]
+        recommendations = []
+        for rec_data in response["data"]:
+            # Response structure: {"data": {"data": [...], "user_id": "..."}}
+            recommendation_items = rec_data["data"]["data"]
+            recommendations.append(Recommendation(data=recommendation_items))
+        return recommendations
 
     def get_export_info(self, query_id: str, expiration: Optional[int] = None) -> RecommendationExportInfo:
         """
